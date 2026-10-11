@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import BaseLayout from "@/components/BaseLayout.vue";
-// const wvPort = window.wvPort
-const showNav = !CUSTOMPARAMS.singlefile
 </script>
 <template>
   <BaseLayout>
     <template #header>
       <div>
-        <h1><router-link to="/admin">Para's Tool</router-link></h1>
+        <h1><router-link to="/">Para's Tool</router-link></h1>
       </div>
-      <div class="right ct" v-if="showNav">
+      <div class="right ct">
         <router-link to="/pinterest">Pinterest</router-link>|
         <router-link to="/image-data">Image Data</router-link>|
         <router-link to="/phone-number">Phone Number</router-link>|

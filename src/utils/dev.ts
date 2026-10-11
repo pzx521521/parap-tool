@@ -1,5 +1,3 @@
-import { useAuthStore } from '@/stores/auth';
-
 const msApi = 'https://parall-para-api.ms.fun/api/v1'
 const renderApi = 'https://api.parap.dpdns.org/api/v1'
 // 判断是否为开发环境
@@ -41,34 +39,4 @@ export const downloadFile = (blob: Blob, filename: string) => {
     a.click()
     window.URL.revokeObjectURL(url)
     document.body.removeChild(a)
-}
-
-// 带 token 的 fetch 请求
-export const tokenfetch = async (path: string, options: RequestInit = {}) => {
-    // 从auth store获取认证信息
-    const authStore = useAuthStore();
-    const token = authStore.token;
-    const userName = authStore.userName;
-
-    const isMsApi = path.startsWith(msApi)
-
-    // ModelScope API 不支持通过请求头传递 token，改为放入 URL 查询参数。
-    if (isMsApi && token) {
-        const url = new URL(path)
-        url.searchParams.set('token', token)
-        url.searchParams.set('userName', userName)
-        path = url.toString()
-    }
-
-    // 设置请求头
-    const headers = {
-        ...(!isMsApi && token ? { 'Authorization': `${userName} ${token}` } : {}),
-        ...options.headers,
-    };
-
-    // 发送请求
-    return fetch(path, {
-        ...options,
-        headers,
-    });
 }
